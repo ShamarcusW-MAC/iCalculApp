@@ -2,7 +2,7 @@
 //  iCalculAppApp.swift
 //  iCalculApp
 //
-//  Created by Consultant on 1/17/23.
+//  Created by Sha'Marcus Walker on 1/17/23.
 //
 
 import SwiftUI
