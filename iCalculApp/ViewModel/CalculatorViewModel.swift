@@ -1,17 +1,17 @@
 //
-//  ContentView.swift
+//  CalculatorViewModel.swift
 //  iCalculApp
 //
-//  Created by Sha'Marcus Walker on 1/17/23.
+//  Created by Sha'Marcus Walker on 1/31/23.
 //
 
-import SwiftUI
+import Foundation
 
-struct ContentView: View {
+class CalculatorViewModel: ObservableObject {
     
-    @State var inputNumber = "0"
-    @State var runningNumber = 0.0
-    @State var currentOperator: Operator = .none
+    @Published var inputNumber = "0"
+    @Published var runningNumber = 0.0
+    @Published var currentOperator: Operator = .none
         
     let buttons: [[CalculatorButton]] = [
         [.clear, .posslashneg, .percent, .divide],
@@ -20,49 +20,6 @@ struct ContentView: View {
         [.one, .two, .three, .add],
         [.zero, .decimal, .equal]
     ]
-    
-    var body: some View {
-        let inputFontSize = Device.isIpad ? 100 : 72
-        ZStack {
-            Color.black.edgesIgnoringSafeArea(.all)
-            VStack {
-                Spacer()
-                HStack {
-                    Spacer()
-                    Text(inputNumber)
-                        .bold()
-                        .font(.system(size: CGFloat(inputFontSize)))
-                        .foregroundColor(Color("CalcBlue"))
-                        .padding(.trailing)
-                    
-                }
-                .padding()
-                
-                ForEach(buttons, id: \.self) { row in
-                    HStack(spacing: 12) {
-                        ForEach(row, id: \.self) { item in
-                            
-                            let buttonWidth = (item.rawValue != "0" ? UIScreen.main.bounds.width / 4.5 : (UIScreen.main.bounds.width / 4.5) * 2.1)
-                                                        
-                            let buttonHeight = Device.isIpad ? 150.0 : 100.0
-
-                            Button {
-                                buttonAction(calcButton: item)
-                            } label: {
-                                Text(item.rawValue)
-                                    .font(.system(size: 32))
-                                    .foregroundColor(Color("CalcBlue"))
-                                    .bold()
-                                    .frame(width: buttonWidth, height: buttonHeight)
-                                    .background(RoundedRectangle(cornerRadius:12)
-                                        .foregroundColor(item.color))
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
     
     func roundToHundredths(result: Double) -> Double {
         return (round(result * 100) / 100)
@@ -141,11 +98,5 @@ struct ContentView: View {
             
                 break
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }
